@@ -31,6 +31,7 @@ class AuthorForm
                 FileUpload::make('profile_image')
                     ->nullable()
                     ->imageEditor()
+                    ->disk('public')
                     ->directory('authors')
                     ->avatar()
                     ->image(),
