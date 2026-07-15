@@ -6,6 +6,7 @@ use App\Models\Author;
 use App\Models\Categorie;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Notifications\Notifiable;
 
 class Post extends Model
@@ -23,11 +24,11 @@ class Post extends Model
         'published_at',
     ];
 
-    public function categorie(){
+    public function category():BelongsTo{
        return $this->belongsTo(Category::class);
     }
 
-    public function author(){
+    public function author():BelongsTo{
        return $this->belongsTo(Author::class);
     }
 

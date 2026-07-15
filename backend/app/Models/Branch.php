@@ -17,7 +17,7 @@ class Branch extends Model
         'city',
         'province',
         'postal_code',
-        'contat_number',
+        'contact_number',
         'email',
         'latitude',
         'longitude',

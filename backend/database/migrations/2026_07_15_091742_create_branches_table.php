@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('city');
             $table->string('province');
             $table->string('postal_code')->nullable();
-            $table->string('contat_number')->nullable();
+            $table->string('contact_number')->nullable();
             $table->string('email')->nullable();
             $table->decimal('latitude',10,7);
             $table->decimal('longitude',10,7);
