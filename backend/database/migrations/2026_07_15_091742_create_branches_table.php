@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('branch_name');
             $table->string('slug')->unique();
-            $table->string('branch_code')->unique()->nullable();
+            $table->string('branch_code')->unique();
             $table->string('address');
             $table->string('city');
             $table->string('province');

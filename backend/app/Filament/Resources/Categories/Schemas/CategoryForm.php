@@ -36,9 +36,11 @@ class CategoryForm
                 TextInput::make('slug')
                     ->placeholder('web-developer')
                     ->required()
+                    ->unique()
                     ->maxLength(255),
                 Textarea::make('description')
                     ->placeholder('Enter a brief description...')
+                    ->nullable()
                     ->rows(5)
                     ->columnSpanFull(),
             ]);
