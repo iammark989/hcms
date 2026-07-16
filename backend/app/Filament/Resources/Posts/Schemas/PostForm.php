@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Posts\Schemas;
 
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
@@ -37,10 +38,10 @@ class PostForm
                 }),
                 TextInput::make('slug')
                     ->maxLength(255)
-                    ->required(),
+                    ->required()
+                    ->unique(),
                 Select::make('category_id')
-                    ->relationship('category', 'name')
-                    ->searchable()
+                    ->relationship('category', 'name')  
                     ->required(),
                 Select::make('author_id')
                     ->relationship('author', 'name')
@@ -48,8 +49,11 @@ class PostForm
                 Select::make('status')
                     ->options(['draft' => 'Draft', 'published' => 'Published'])
                     ->default('draft')
+                    ->live()
                     ->required(),
-                DateTimePicker::make('published_at'),
+                DatePicker::make('published_at')
+                    ->required(fn (Get $get): bool => $get('status') === 'published')
+                    ->disabled(fn (Get $get): bool => $get('status') !== 'published'),
                 FileUpload::make('featured_image')
                     ->disk('public')
                     ->directory('posts')
