@@ -14,4 +14,5 @@ class AuthorController extends Controller
                                                 ->orderBy('name')
                                                 ->get());
     }
+
 }

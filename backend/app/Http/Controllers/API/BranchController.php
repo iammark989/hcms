@@ -15,4 +15,14 @@ class BranchController extends Controller
                                             ->get()
         );
     }
+
+    public function show($slug){
+        $branch = Branch::query()
+        ->where('status', 'active')
+        ->where('slug', $slug)
+        ->firstOrFail();
+
+         return new BranchResource($branch);
+        
+    }
 }

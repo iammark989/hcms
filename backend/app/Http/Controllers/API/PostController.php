@@ -17,4 +17,13 @@ class PostController extends Controller
                                         ->get()
     );
     }
+    public function show($slug){
+         $post = Post::query()
+        ->with(['author', 'category'])
+        ->where('status', 'published')
+        ->where('slug', $slug)
+        ->firstOrFail();
+
+    return new PostResource($post);
+    }
 }

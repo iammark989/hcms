@@ -15,3 +15,7 @@ Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/authors',[AuthorController::class,'index']);
 Route::get('/posts',[PostController::class,'index']);
 Route::get('/branches',[BranchController::class,'index']);
+
+Route::get('/categories/{slug}',[CategoryController::class,'show']);
+Route::get('/posts/{slug}',[PostController::class,'show']);
+Route::get('/branches/{slug}',[BranchController::class,'show']);

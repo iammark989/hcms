@@ -16,14 +16,14 @@ class AuthorsTable
     {
         return $table
             ->columns([
+                ImageColumn::make('profile_image')
+                    ->label('Photo')
+                    ->circular(),
                 TextColumn::make('name')
                     ->sortable(),
                 TextColumn::make('email')
                     ->label('Email address')
                     ->searchable(),
-                ImageColumn::make('profile_image')
-                    ->label('Photo')
-                    ->circular(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

@@ -13,4 +13,13 @@ class CategoryController extends Controller
     {
         return CategoryResource::collection(Category::orderBy('name')->get());
     }
+
+    public function show($slug)
+    {
+        $category = Category::query()
+        ->where('slug', $slug)
+        ->firstOrFail();
+
+        return new CategoryResource($category);
+    }
 }
