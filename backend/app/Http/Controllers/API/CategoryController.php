@@ -16,7 +16,15 @@ class CategoryController extends Controller
 
     public function show($slug)
     {
-        $category = Category::query()
+         $category = Category::query()
+        ->with([
+            'posts' => function ($query) {
+                $query
+                    ->with(['author', 'category'])
+                    ->where('status', 'published')
+                    ->orderByDesc('published_at');
+            }
+        ])
         ->where('slug', $slug)
         ->firstOrFail();
 
