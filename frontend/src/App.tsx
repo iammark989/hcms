@@ -22,7 +22,7 @@ function App() {
           <Route path="/blog/:slug" element={<BlogDetails />} />
 
 
-          <Route path="/category/:slug" element={<Category />} />
+          <Route path="/categories/:slug" element={<Category />} />
 
           <Route path="/branches" element={<Branches />} />
           <Route path="/branches/:slug" element={<BranchDetails />} />

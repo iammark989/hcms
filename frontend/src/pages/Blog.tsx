@@ -2,6 +2,7 @@ import { useState,useEffect } from "react";
 import { getPosts } from "../services/posts";
 import type { Post } from "../types/post"
 import PostGrid from '../components/blog/PostGrid'
+import BranchCTA from "../components/branch/BranchCTA";
 
 export default function Blog(){
     const [ posts, setPosts ] = useState<Post[]>([]);
@@ -25,6 +26,7 @@ export default function Blog(){
 
         <>
         <PostGrid  posts={posts}/>
+        <BranchCTA />
         </>
         
     );
