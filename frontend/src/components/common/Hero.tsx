@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 export default function Hero() {
     return (
         <section className="bg-[#faf8f3]">
-            <div className="mx-auto max-w-7xl px-6 py-24 lg:px-8 lg:py-32">
+            <div className="mx-auto max-w-7xl px-6 py-3 lg:px-8 lg:py-10">
                 <div className="mx-auto max-w-4xl text-center">
                     <p className="mb-5 text-sm font-semibold uppercase tracking-[0.2em] text-amber-700">
                         Stories worth reading

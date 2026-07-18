@@ -24,6 +24,7 @@ class AuthorsTable
                 TextColumn::make('email')
                     ->label('Email address')
                     ->searchable(),
+                TextColumn::make('biography'),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

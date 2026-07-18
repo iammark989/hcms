@@ -1,5 +1,6 @@
 import type { Post } from '../../types/post'
 import PostCard from './PostCard'
+import { BookOpen } from 'lucide-react'
 
 interface LatestPostsProps {
     posts: Post[]
@@ -30,11 +31,27 @@ export default function PostGrid({ posts,limit, }: LatestPostsProps) {
                     </p>
                 </div>
 
-                <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                    {displayedPosts.map((post) => (
-                        <PostCard key={post.id} post={post} />
-                    ))}
-                </div>
+                    {displayedPosts.length > 0 ?(
+                        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                            {displayedPosts.map((post) => (
+                                <PostCard key={post.id} post={post} />
+                            ))}
+                        </div>
+                    )  : 
+                    (
+                        <div className="mx-auto flex max-w-7xl flex-col items-center justify-center px-6 py-24 text-center">
+                            <BookOpen className="mb-4 h-12 w-12 text-stone-400" />
+                            <h2 className="text-2xl font-semibold text-stone-800">
+                                No blog posts yet
+                            </h2>
+
+                            <p className="mt-2 max-w-md text-stone-500">
+                                There are currently no published blog posts. Please check back later.
+                            </p>
+                        </div>
+                    ) 
+                    }
+            
             </div>
         </section>
     )
