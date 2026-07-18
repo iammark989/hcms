@@ -128,7 +128,7 @@ cd hcms
 ```bash
 cd backend
 
-cp .env.example .env
+copy .env.example .env
 
 composer install
 
@@ -167,7 +167,7 @@ http://127.0.0.1:8000
 
 ```bash
 cd frontend
-cp .env.example .env
+copy .env.example .env
 npm install
 ```
 
