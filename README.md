@@ -255,6 +255,17 @@ The seeders also copy all required demo images into the Laravel public storage d
 
 ---
 
+## Known Limitations
+
+- Blog search is not implemented.
+- Pagination is not implemented.
+- Geocoding is not implemented because branch coordinates are entered manually.
+
+## Maps are implemented using:
+- React Leaflet
+- OpenStreetMap tiles
+Coordinates are stored in the database and retrieved through the Laravel API.
+
 # Future Improvements
 
 - Search blog posts
