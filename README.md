@@ -118,6 +118,7 @@ chapter-co/
 
 ```bash
 git clone https://github.com/iammark989/hcms.git
+cd hcms
 ```
 
 ---
@@ -127,9 +128,9 @@ git clone https://github.com/iammark989/hcms.git
 ```bash
 cd backend
 
-composer install
-
 cp .env.example .env
+
+composer install
 
 php artisan key:generate
 ```
@@ -166,7 +167,7 @@ http://127.0.0.1:8000
 
 ```bash
 cd frontend
-
+cp .env.example .env
 npm install
 ```
 
