@@ -53,8 +53,7 @@ class BranchForm
                     ->required(),
                 TextInput::make('branch_code')
                     ->placeholder('BR-PAMPANGA')
-                    ->unique(ignoreRecord: true)
-                    ->required(),
+                    ->unique(ignoreRecord: true),
                 Select::make('status')
                     ->default('active')
                     ->options(['active' => 'Active', 'inactive' => 'Inactive'])
@@ -64,6 +63,7 @@ class BranchForm
                     ->disk('public')
                     ->directory('branches')
                     ->nullable()
+                    ->maxSize(2048)
                     ->image(),
                 Textarea::make('address')
                     ->required(),

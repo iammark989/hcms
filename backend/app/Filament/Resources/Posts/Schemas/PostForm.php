@@ -57,7 +57,9 @@ class PostForm
                 FileUpload::make('featured_image')
                     ->disk('public')
                     ->directory('posts')
+                    ->nullable()
                     ->image()
+                    ->maxSize(2048)
                     ->imageEditor(),                
                 Textarea::make('excerpt')
                     ->required()

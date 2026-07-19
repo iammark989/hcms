@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { getBranch } from '../services/branches'
 import type { Branch } from '../types/branch'
+import BranchMap from '../components/branch/BranchMap'
+import { Navigation } from 'lucide-react'
 
 export default function BranchDetails() {
     const { slug } = useParams<{ slug: string }>()
@@ -79,21 +81,28 @@ export default function BranchDetails() {
                 <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-2 lg:px-8">
 
                     {/* Image */}
-                    <div>
+                    <div className="space-y-6">
                         {branch.featured_image ? (
                             <img
                                 src={branch.featured_image}
                                 alt={branch.branch_name}
-                                className="h-full max-h-[500px] w-full rounded-2xl object-cover"
+                                className="w-full h-auto rounded-2xl object-cover"
                             />
                         ) : (
                             <div className="flex h-80 items-center justify-center rounded-2xl bg-stone-100 text-stone-400">
                                 No branch image available
                             </div>
                         )}
+                        <div className="mt-6">
+                        <BranchMap
+                                branches={[branch]}
+                                selectedBranch={branch}
+                            />
+                            </div>
                     </div>
 
                     {/* Information */}
+                    
                     <div>
                         <h2 className="font-serif text-3xl font-bold text-stone-950">
                             Branch Information
@@ -114,7 +123,30 @@ export default function BranchDetails() {
                                     {branch.postal_code &&
                                         ` ${branch.postal_code}`}
                                 </p>
+
+                                 <a
+                                    href={`https://www.google.com/maps/dir/?api=1&destination=${branch.latitude},${branch.longitude}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-2 rounded-lg bg-amber-600 px-4 py-2 text-white hover:bg-amber-700 mt-2"
+                                >
+                                    <Navigation className="h-4 w-4" />
+                                    Get Directions
+                                </a>
+
                             </div>
+
+                            {branch.branch_code && (
+                                <div>
+                                    <p className="text-sm font-semibold text-stone-900">
+                                        Branch Code
+                                    </p>
+
+                                    <p className="mt-1 text-stone-600">
+                                        {branch.branch_code}
+                                    </p>
+                                </div>
+                            )}
 
                             {branch.business_hours && (
                                 <div>
@@ -128,6 +160,7 @@ export default function BranchDetails() {
                                 </div>
                             )}
 
+                           
                             {branch.contact_number && (
                                 <div>
                                     <p className="text-sm font-semibold text-stone-900">

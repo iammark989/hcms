@@ -14,36 +14,27 @@ export default function Home() {
 
     const [ categories,setCategories ] = useState<Category[]>([])
 
-    useEffect(()=>{
-        const fetchHomeData = async () => {
-            try {
-                const [postsData,cagoriesData] = await Promise.all([
-                    getPosts(),
-                    getCategories(),
-                ])
-                setPosts(postsData)
-                setCategories(cagoriesData)
-            }catch (error){
-                console.error('Failed to fetch home data:',error)
-            }
+    useEffect(() => {
+    const fetchHomeData = async () => {
+        try {
+            const [postsResult, categoriesData] = await Promise.all([
+                getPosts(),
+                getCategories(),
+            ]);
+
+            setPosts(postsResult.data);
+            setCategories(categoriesData);
+
+        } catch (error) {
+            console.error("Failed to fetch home data:", error);
         }
-        fetchHomeData()
-    },[])
+    };
+
+    fetchHomeData();
+}, []);
 
     const [posts, setPosts] = useState<Post[]>([])
 
-    useEffect(() => {
-        const fetchPosts = async () => {
-            try {
-                const data = await getPosts()
-                setPosts(data)
-            } catch (error) {
-                console.error('Failed to fetch posts:', error)
-            }
-        }
-
-        fetchPosts()
-    }, [])
 
     return (
         <>

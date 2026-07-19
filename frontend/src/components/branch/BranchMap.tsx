@@ -1,24 +1,42 @@
 import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet'
-import { Link } from 'react-router-dom'
 import type { Branch } from '../../types/branch'
 import 'leaflet/dist/leaflet.css'
 import { useEffect } from 'react'
 import L from 'leaflet'
 
 interface BranchMapProps {
-    branches: Branch[]
+    branches: Branch[];
+    selectedBranch: Branch | null;
 }
 
-export default function BranchMap({ branches }: BranchMapProps) {
-   function FitMapToBranches({ branches }: BranchMapProps) {
-    const map = useMap()
+export default function BranchMap({ branches,selectedBranch }: BranchMapProps) {
+   function FitMapToBranches({
+    branches,
+    selectedBranch,
+}: BranchMapProps) {
+    const map = useMap();
 
     useEffect(() => {
-        if (branches.length === 0) {
-            return
+
+        // Priority: if a branch was selected from the list
+        if (selectedBranch) {
+            map.flyTo(
+                [
+                    Number(selectedBranch.latitude),
+                    Number(selectedBranch.longitude),
+                ],
+                15
+            );
+
+            return;
         }
 
-        // If only one branch matches, zoom directly to it.
+        // No branches
+        if (branches.length === 0) {
+            return;
+        }
+
+        // One branch
         if (branches.length === 1) {
             map.setView(
                 [
@@ -26,25 +44,26 @@ export default function BranchMap({ branches }: BranchMapProps) {
                     Number(branches[0].longitude),
                 ],
                 15
-            )
+            );
 
-            return
+            return;
         }
 
-        // If multiple branches match, fit all markers on screen.
+        // Multiple branches
         const bounds = L.latLngBounds(
-            branches.map((branch) => [
+            branches.map(branch => [
                 Number(branch.latitude),
                 Number(branch.longitude),
             ])
-        )
+        );
 
         map.fitBounds(bounds, {
             padding: [50, 50],
-        })
-    }, [branches, map])
+        });
 
-    return null
+    }, [branches, selectedBranch, map]);
+
+    return null;
 }
 
     return (
@@ -52,14 +71,17 @@ export default function BranchMap({ branches }: BranchMapProps) {
                 center={[12.8797, 121.774]}
                 zoom={6}
                 scrollWheelZoom={true}
-                className="h-[500px] w-full rounded-2xl"
+                className="h-72 md:h-96 lg:h-[500px] w-full rounded-2xl overflow-hidden"
             >
                 <TileLayer
                     attribution="&copy; OpenStreetMap contributors"
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
 
-                <FitMapToBranches branches={branches} />
+                <FitMapToBranches
+                    branches={branches}
+                    selectedBranch={selectedBranch}
+                />
 
                 {branches.map((branch) => (
                     <Marker
@@ -70,10 +92,18 @@ export default function BranchMap({ branches }: BranchMapProps) {
                         ]}
                     >
                         <Popup>
-                            <strong>{branch.branch_name}</strong>
+                            <div>
+                                <h3>{branch.branch_name}</h3>
+                                <p>{branch.address}</p>
+                                <p>{branch.contact_number}</p>
+                                <p>{branch.business_hours}</p>
+                            </div>
                         </Popup>
+                        
                     </Marker>
                 ))}
+                
             </MapContainer>
+            
     )
 }

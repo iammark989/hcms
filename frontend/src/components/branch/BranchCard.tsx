@@ -1,13 +1,17 @@
 import { Link } from 'react-router-dom'
 import type { Branch } from '../../types/branch'
+import { Phone, MapPin, Clock3 } from 'lucide-react'
+
 
 interface BranchCardProps {
-    branch: Branch
+     branch: Branch;
+    onSelect?: () => void;
 }
 
-export default function BranchCard({ branch }: BranchCardProps) {
+export default function BranchCard({ branch, onSelect, }: BranchCardProps) {
+  
     return (
-        <article className="overflow-hidden rounded-2xl border border-stone-200 bg-white">
+        <article  onClick={onSelect} className="overflow-hidden rounded-2xl border border-stone-200 bg-white">
             {branch.featured_image && (
                 <div className="aspect-[16/10] overflow-hidden bg-stone-100">
                     <img
@@ -27,16 +31,39 @@ export default function BranchCard({ branch }: BranchCardProps) {
                     {branch.branch_name}
                 </h2>
 
-                <p className="mt-3 leading-7 text-stone-600">
-                    {branch.address}
-                </p>
+                <div className="space-y-3">
 
-                {branch.business_hours && (
-                    <p className="mt-3 text-sm text-stone-500">
-                        {branch.business_hours}
+                <div className="flex items-start gap-2">
+                    <MapPin className="h-5 w-5 mt-0.5 text-amber-600 shrink-0" />
+                    <p className="text-sm text-stone-600 leading-6">
+                        {branch.address}
                     </p>
+                </div>
+
+                {branch.contact_number && (
+                    <div className="flex items-center gap-2">
+                        <Phone className="h-5 w-5 text-amber-600 shrink-0" />
+                        <a
+                            href={`tel:${branch.contact_number}`}
+                            className="text-sm text-stone-500 hover:text-amber-600"
+                        >
+                            {branch.contact_number}
+                        </a>
+                    </div>
                 )}
 
+                {branch.business_hours && (
+                    <div className="flex items-center gap-2">
+                        <Clock3 className="h-5 w-5 text-amber-600 shrink-0" />
+                        <span className="text-sm text-stone-500">
+                            {branch.business_hours}
+                        </span>
+                    </div>
+                )}
+
+            </div>
+
+                
                 <div className="mt-6 border-t border-stone-100 pt-5">
                     <Link
                         to={`/branches/${branch.slug}`}

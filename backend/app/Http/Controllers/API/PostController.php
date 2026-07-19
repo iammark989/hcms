@@ -14,7 +14,7 @@ class PostController extends Controller
                                         ->with(['author', 'category'])
                                         ->where('status', 'published')
                                         ->orderByDesc('published_at')
-                                        ->get()
+                                        ->paginate(6)
     );
     }
     public function show($slug){

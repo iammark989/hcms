@@ -52,7 +52,7 @@ class BranchSeeder extends Seeder
         Branch::create([
         'branch_name' => 'Pampanga Downtown',
         'slug' => 'pampanga-downtown',
-        'branch_code' => 'BR-PAMPANGA-downtown',
+        'branch_code' => 'BR-PAMPANGA-DOWNTOWN',
         'address' => 'B. Mendoza St.',
         'city' => 'San Fernando',
         'province' => 'Pampanga',

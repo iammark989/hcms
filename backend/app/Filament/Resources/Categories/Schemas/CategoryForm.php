@@ -17,7 +17,7 @@ class CategoryForm
             ->components([
                 TextInput::make('name')
                 ->label('Category Name')
-                ->placeholder('Web Development')
+                ->placeholder('Educational')
                 ->required()
                 ->maxLength(255)
                 ->live(onBlur: true)
@@ -34,7 +34,7 @@ class CategoryForm
                     $set('slug', Str::slug($state));
                 }),
                 TextInput::make('slug')
-                    ->placeholder('web-developer')
+                    ->placeholder('educational')
                     ->required()
                     ->unique()
                     ->maxLength(255),

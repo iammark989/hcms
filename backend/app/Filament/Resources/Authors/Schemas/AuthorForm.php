@@ -34,6 +34,7 @@ class AuthorForm
                     ->disk('public')
                     ->directory('authors')
                     ->avatar()
+                    ->maxSize(2048)
                     ->image(),
             ]);
     }

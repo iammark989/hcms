@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom'
 import type { Post } from '../../types/post'
+import { formatDate } from '../utils/formatDate'
 
 interface PostCardProps {
     post: Post
 }
 
 export default function PostCard({ post }: PostCardProps) {
+    
     return (
         <article className="group overflow-hidden rounded-2xl border border-stone-200 bg-white">
             {post.featured_image && (
@@ -41,7 +43,8 @@ export default function PostCard({ post }: PostCardProps) {
 
                 <div className="mt-6 flex items-center justify-between border-t border-stone-100 pt-5">
                     <span className="text-sm text-stone-500">
-                        By {post.author.name}
+                        By {post.author.name} • {post.published_at && formatDate(post.published_at)}
+                        
                     </span>
 
                     <Link

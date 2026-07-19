@@ -13,6 +13,9 @@ export default function PostGrid({ posts,limit, }: LatestPostsProps) {
         ? posts.slice(0, limit)
         : posts
 
+      
+
+
     return (
         <section className="bg-white py-20">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -37,6 +40,7 @@ export default function PostGrid({ posts,limit, }: LatestPostsProps) {
                                 <PostCard key={post.id} post={post} />
                             ))}
                         </div>
+                        
                     )  : 
                     (
                         <div className="mx-auto flex max-w-7xl flex-col items-center justify-center px-6 py-24 text-center">

@@ -2,12 +2,14 @@
 
 namespace App\Filament\Resources\Branches\Tables;
 
+use App\Models\Branch;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
 class BranchesTable
@@ -56,7 +58,23 @@ class BranchesTable
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                SelectFilter::make('status')
+                        ->options([
+                            'active' => "Active",
+                            'inactive' => "Inactive",
+                        ]),
+                SelectFilter::make('city')
+                        ->options(
+                            Branch::query()
+                                ->pluck('city','city')
+                                ->toArray()
+                        ),
+                SelectFilter::make('province')
+                        ->options(
+                            Branch::query()
+                                ->pluck('province','province')
+                                ->toArray()
+                        ),
             ])
             ->recordActions([
                 EditAction::make(),

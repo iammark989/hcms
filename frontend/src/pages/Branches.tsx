@@ -9,7 +9,7 @@ export default function Branches() {
     const [branches, setBranches] = useState<Branch[]>([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
-
+    const [selectedBranch, setSelectedBranch] = useState<Branch | null>(null);
     const [ search, setSearch ] = useState('')
 
     const filteredBranches = branches.filter((branch) => {
@@ -37,27 +37,29 @@ export default function Branches() {
         }
 
         fetchBranches()
-    }, [])
+            }, [])
 
-    if (loading) {
-        return (
-            <div className="mx-auto max-w-7xl px-6 py-24 lg:px-8">
-                <p className="text-stone-500">
-                    Loading branches...
-                </p>
-            </div>
-        )
-    }
+            if (loading) {
+                return (
+                    <div className="mx-auto max-w-7xl px-6 py-24 lg:px-8">
+                        <p className="text-stone-500">
+                            Loading branches...
+                        </p>
+                    </div>
+                )
+            }
 
-    if (error) {
-        return (
-            <div className="mx-auto max-w-7xl px-6 py-24 lg:px-8">
-                <p className="text-stone-500">
-                    Unable to load branches.
-                </p>
-            </div>
-        )
-    }
+            if (error) {
+                return (
+                    <div className="mx-auto max-w-7xl px-6 py-24 lg:px-8">
+                        <p className="text-stone-500">
+                            Unable to load branches.
+                        </p>
+                    </div>
+                )
+            }
+
+        
 
     return (
         <>
@@ -93,7 +95,10 @@ export default function Branches() {
                             id="branch-search"
                             type="text"
                             value={search}
-                            onChange={(e) => setSearch(e.target.value)}
+                            onChange={(e) => {
+                                setSearch(e.target.value);
+                                setSelectedBranch(null);
+                            }}
                             placeholder="e.g. Pampanga, Bulacan, SM Clark..."
                             className="w-full rounded-2xl border border-stone-300 bg-white py-3 pl-12 pr-5"
                         />
@@ -114,18 +119,22 @@ export default function Branches() {
 
             <section className="bg-white py-16">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                    <BranchMap branches={filteredBranches} />
+                    <BranchMap
+                        branches={filteredBranches}
+                        selectedBranch={selectedBranch}
+                    />
                 </div>
             </section>
             
             <section className="bg-white py-20">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                    {branches.length > 0 ? (
+                    {filteredBranches.length > 0 ? (
                         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                             {filteredBranches.map((branch) => (
                                 <BranchCard
                                     key={branch.id}
                                     branch={branch}
+                                    onSelect={() => setSelectedBranch(branch)}
                                 />
                             ))}
                         </div>
