@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams,Link } from 'react-router-dom'
 import { getCategory } from '../services/categories'
 import PostGrid from '../components/blog/PostGrid'
 import type { CategoryDetails } from '../types/category'
@@ -39,8 +39,21 @@ export default function Category() {
         return <p>Loading category...</p>
     }
 
-    if (error || !category) {
-        return <p>Category not found.</p>
+     if (error || !category) {
+        return (
+            <div className="mx-auto max-w-7xl px-6 py-24 text-center lg:px-8">
+                <h1 className="font-serif text-4xl font-bold text-stone-950">
+                    Category not found
+                </h1>
+
+                <Link
+                    to="/"
+                    className="mt-6 inline-block font-semibold text-amber-700"
+                >
+                    ← Back to Home
+                </Link>
+            </div>
+        )
     }
 
     return (
