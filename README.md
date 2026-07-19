@@ -162,6 +162,26 @@ http://127.0.0.1:8000
 ```
 
 ---
+# Seeded Data
+
+The project includes sample data:
+
+- 5 Categories
+- 5 Authors
+- 10 Blog Posts
+- 5 Branches
+- Administrator Account
+
+Run
+
+```bash
+php artisan migrate:fresh --seed
+```
+
+to recreate the demo database.
+The seeders also copy all required demo images into the Laravel public storage directory.
+
+---
 
 # Frontend Setup
 
@@ -190,6 +210,47 @@ http://localhost:5173
 ```
 
 ---
+## Environment Variables
+
+### Backend
+
+Configure the following values in `backend/.env`:
+
+```env
+APP_URL=http://127.0.0.1:8000
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=chapter_co
+DB_USERNAME=root
+DB_PASSWORD=
+
+FILESYSTEM_DISK=public
+```
+
+### Frontend
+
+```env
+VITE_API_URL=http://127.0.0.1:8000/api
+```
+---
+
+## CORS Configuration
+
+The backend is configured to allow requests from the frontend development server.
+
+Development URLs:
+
+Backend:
+http://127.0.0.1:8000
+
+Frontend:
+http://localhost:5173
+
+If the frontend URL changes, update the Laravel CORS configuration accordingly.
+
+---
 
 # Default Admin Account
 
@@ -203,78 +264,58 @@ password
 
 ---
 
-## Available REST API Endpoints
+## API Endpoints
 
-## Categories
+### Posts
 
-```
-GET /api/categories
-GET /api/categories/{slug}
-```
-
-## Authors
-
-```
-GET /api/authors
-```
-
-## Posts
-
-```
 GET /api/posts
+
+Returns paginated published blog posts.
+
 GET /api/posts/{slug}
-```
 
-## Branches
+Returns a single published post.
 
-```
+### Categories
+
+GET /api/categories
+
+Returns all categories.
+
+GET /api/categories/{slug}
+
+Returns a category and its published posts.
+
+### Authors
+
+GET /api/authors
+
+Returns all authors.
+
+### Branches
+
 GET /api/branches
+
+Returns active branches.
+
 GET /api/branches/{slug}
-```
+
+Returns a single active branch.
 
 ---
-
-# Seeded Data
-
-The project includes sample data:
-
-- 5 Categories
-- 5 Authors
-- 10 Blog Posts
-- 5 Branches
-- Administrator Account
-
-Run
-
-```bash
-php artisan migrate:fresh --seed
-```
-
-to recreate the demo database.
-The seeders also copy all required demo images into the Laravel public storage directory.
-
----
-
-## Known Limitations
-
-- Blog search is not implemented.
-- Pagination is not implemented.
-- Geocoding is not implemented because branch coordinates are entered manually.
 
 ## Maps are implemented using:
 - React Leaflet
 - OpenStreetMap tiles
 Coordinates are stored in the database and retrieved through the Laravel API.
 
-# Future Improvements
+## Geocoding
 
-- Search blog posts
-- Author profile page
-- Pagination
-- Related posts
-- Authentication for customers
-- Book catalog
-- Online ordering
+No public geocoding service is used.
+
+Branch latitude and longitude are entered manually through the Filament CMS and stored in the database.
+
+This avoids unnecessary geocoding requests and follows the examination recommendation to store coordinates instead of requesting them on every page load.
 
 ---
 
