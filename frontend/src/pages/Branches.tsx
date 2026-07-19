@@ -103,7 +103,17 @@ export default function Branches() {
                             className="w-full rounded-2xl border border-stone-300 bg-white py-3 pl-12 pr-5"
                         />
                         </div>
-                       {filteredBranches.length === 0 && (
+                       {branches.length === 0 ? (
+                            <div className="rounded-2xl py-2 text-center">
+                                <h3 className="font-serif text-xl font-semibold text-stone-900">
+                                    No branches available
+                                </h3>
+
+                                <p className="mt-2 text-stone-600">
+                                    There are currently no active branches to display.
+                                </p>
+                            </div>
+                        ) : filteredBranches.length === 0 ? (
                             <div className="rounded-2xl py-2 text-center">
                                 <h3 className="font-serif text-xl font-semibold text-stone-900">
                                     No branches found
@@ -113,6 +123,8 @@ export default function Branches() {
                                     Try searching with another city, province, or branch name.
                                 </p>
                             </div>
+                        ) : (
+                            ''
                         )}
                     </div>
                 </section>
